@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using EagleUniversity.CustomFilter;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EagleUniversity
@@ -8,6 +9,7 @@ namespace EagleUniversity
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new ExceptionHandlerAttribute());
         }
     }
 }

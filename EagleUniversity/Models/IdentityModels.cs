@@ -16,6 +16,7 @@ namespace EagleUniversity.Models
         public DbSet<CourseDocument> CourseDocuments { get; set; }
         public DbSet<ModuleDocument> ModuleDocuments { get; set; }
         public DbSet<ActivityDocument> ActivityDocuments { get; set; }
+        public DbSet<ExceptionLogger> ExceptionLoggers { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

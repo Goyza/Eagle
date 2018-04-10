@@ -116,7 +116,7 @@ namespace EagleUniversity.Controllers
             }
 
             var viewModel = new ActivityViewModel()
-            { redirectProperty = entity, ModuleId = entity.Id
+            { redirectProperty = entity, ModuleId = activity.ModuleId
             , EndDateAm = false, StartDateAm = true
             , StartDate = activity.StartDate
             , EndDate = activity.EndDate
@@ -166,9 +166,11 @@ namespace EagleUniversity.Controllers
                     editActivity.EndDate = new DateTime(e.Year, e.Month, e.Day, 23, 59, 59);
                 }
 
+                //throw new Exception("Edit Activity");
 
                 db.Entry(editActivity).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction(activity.redirectProperty.returnMethod, activity.redirectProperty.returnController, new { id = activity.redirectProperty.returnId, redirect = activity.redirectProperty.returnTarget });
             }
             return View(activity);

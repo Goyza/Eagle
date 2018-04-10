@@ -59,7 +59,8 @@ namespace EagleUniversity.Controllers
                 DateTime e = module.EndDate;
                 module.EndDate = new DateTime(e.Year, e.Month, e.Day, 23, 59, 59);
                 db.Modules.Add(module);
-                db.SaveChanges();
+                db.SaveChanges();             
+ 
                 return RedirectToAction("Details", "Courses", new { id = module.CourseId });
             }
 
