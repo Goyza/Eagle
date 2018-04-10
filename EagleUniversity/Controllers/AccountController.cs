@@ -14,6 +14,7 @@ using EagleUniversity.Models.ViewModels;
 using System.Net;
 using System.Data.Entity;
 using System.Web.Security;
+using System.Collections.Generic;
 
 namespace EagleUniversity.Controllers
 {
@@ -74,7 +75,7 @@ namespace EagleUniversity.Controllers
     FirstName = r.FirstName,
     Email = r.Email,
     RegistrationTime = r.RegistrationTime,
-    LastName = r.LastName, requestedCourseId= CourseId
+    LastName = r.LastName, requestedCourseId= CourseId, Avatar= r.Avatar.FirstOrDefault()
     });
             if (isEmpty)
             {
@@ -94,7 +95,8 @@ namespace EagleUniversity.Controllers
                     FirstName = r.FirstName,
                     Email = r.Email,
                     RegistrationTime = r.RegistrationTime,
-                    LastName = r.LastName, requestedCourseId= CourseId
+                    LastName = r.LastName, requestedCourseId= CourseId ,
+                    Avatar = r.Avatar.FirstOrDefault()
                 });
             }
 
@@ -102,6 +104,7 @@ namespace EagleUniversity.Controllers
             //{
             //    return HttpNotFound();
             //}
+            
 
             return PartialView("_UserList", viewModel);
         }
@@ -440,6 +443,7 @@ namespace EagleUniversity.Controllers
         public ActionResult DetailAjaxUser(UserEntity userEntity)
         {
             var viewModel = _db.Users
+                //.Include(s => s.Avatar)
             .Where(r => r.Id == userEntity.UserId)
             .Select(r => new UserViewModel
             {
@@ -447,7 +451,8 @@ namespace EagleUniversity.Controllers
                 FirstName = r.FirstName,
                 Email = r.Email,
                 LastName = r.LastName,
-                RegistrationTime=r.RegistrationTime
+                RegistrationTime=r.RegistrationTime, Avatar=r.Avatar.FirstOrDefault()
+
             }).SingleOrDefault();
 
             viewModel.assignedEntity = userEntity;
@@ -478,7 +483,7 @@ namespace EagleUniversity.Controllers
         //        // POST: /Account/CreateUser
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("CreateAjaxUser")]
-        public ActionResult CreateAjaxUserConfirmed(CreateUserViewModel model)
+        public ActionResult CreateAjaxUserConfirmed(CreateUserViewModel model, HttpPostedFileBase upload)
         {
             var userStore = new UserStore<ApplicationUser>(_db);
             var userManager = new UserManager<ApplicationUser>(userStore);
@@ -492,7 +497,32 @@ namespace EagleUniversity.Controllers
                 returnTarget = model.assignedEntity.returnTarget
             };
             model.assignedEntity = tempEntity;
+            //
+            var addDocument = new Document()
+            {
+                //Id = document.Id,
+                DocumentTypeId = 1,
+                DocumentName = "Avatar",
+                DueDate = DateTime.Now,
+                UploadDate = DateTime.Now
+            };
 
+            if (upload != null && upload.ContentLength > 0)
+            {
+                            addDocument.DocumentName = System.IO.Path.GetFileName(upload.FileName);
+                            addDocument.FileType = upload.ContentType;
+                            using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                            {
+                                addDocument.Content = reader.ReadBytes(upload.ContentLength);
+                            }
+                        
+                        //_db.Documents.Add(addDocument);
+                        //_db.SaveChanges();
+
+
+            }
+
+            //
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -502,8 +532,9 @@ namespace EagleUniversity.Controllers
                     LastName = model.LastName,
                     FirstName = model.FirstName,
                     RegistrationTime = DateTime.Now,
+                    Avatar = new List<Document> { addDocument }
 
-                };
+            };
                 var result = UserManager.Create(user, "Passoword12345");
                 if (result.Succeeded)
                 {

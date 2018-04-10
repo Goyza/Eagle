@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201804100848386_logger.Designer.cs">
       <DependentUpon>201804100848386_logger.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804102227484_avatar.cs" />
+    <Compile Include="Migrations\201804102227484_avatar.Designer.cs">
+      <DependentUpon>201804102227484_avatar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -392,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804100848386_logger.resx">
       <DependentUpon>201804100848386_logger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102227484_avatar.resx">
+      <DependentUpon>201804102227484_avatar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

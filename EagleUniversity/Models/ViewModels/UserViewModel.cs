@@ -22,6 +22,8 @@ namespace EagleUniversity.Models.ViewModels
         public string LastName { get; set; }
         public string Fullname { get { return FirstName + " " + LastName; } }
         public DateTime RegistrationTime { get; set; }
+        public Document Avatar { get; set; }
+
         public string Role
             {
             get

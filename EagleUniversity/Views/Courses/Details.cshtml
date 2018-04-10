@@ -254,7 +254,7 @@ returnTarget = $"module_{k}"
                 @if (User.IsInRole("Teacher"))
                 {<br><div>
                         <h4>
-                            @Ajax.ActionLink("Create New Student", "CreateAjaxUser", "Account", new
+                            @Ajax.ActionLink("Create New", "CreateAjaxUser", "Account", new
                             {
                                 returnId = Model.Id,
                                 returnController = "Courses",
@@ -265,7 +265,7 @@ returnTarget = $"module_{k}"
                                                                      {
                                                                          UpdateTargetId = "create-entity",
                                                                          OnBegin = "OnBegin"
-                                                                     }, null)
+                                                                     }, new { @class = "btn btn-primary" })
                         </h4>
                     </div><br>}
                 <table class="table">

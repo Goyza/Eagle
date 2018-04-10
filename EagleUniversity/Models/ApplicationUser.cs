@@ -13,6 +13,7 @@ namespace EagleUniversity.Models
     {
         //Nav prop
         public virtual ICollection<Assignments> CourseUserAssigments { get; set; }
+        public virtual ICollection<Document> Avatar { get; set; }
 
         public string FirstName { get; set; }
         [Required]

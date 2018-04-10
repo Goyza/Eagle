@@ -39,6 +39,7 @@ namespace EagleUniversity.Models
         public virtual ICollection<CourseDocument> CourseDocumentAssignments { get; set; }
         public virtual ICollection<ModuleDocument> ModuleDocumentAssignments { get; set; }
         public virtual ICollection<ActivityDocument> ActivityDocumentAssignments { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
 
         //Users Views
         public static string DocToEtity(int documentId)

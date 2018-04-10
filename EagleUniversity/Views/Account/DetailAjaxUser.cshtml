@@ -9,6 +9,15 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+        @if (Model.Avatar!=null)
+    {
+        <dt>
+            Avatar
+        </dt>
+        <dd>
+            <img class="avatar" src="~/File?id=@Model.Avatar.Id" alt="avatar" />
+        </dd>
+}
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
